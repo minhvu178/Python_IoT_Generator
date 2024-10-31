@@ -1,0 +1,26 @@
+
+services:
+
+  # Used to test the local Kafka Connector/sinks into MongoDB or direct insert into MongoDB Collection.
+  mongodb:
+    image: mongodb/mongodb-atlas-local:7.0.5
+    hostname: mongodb
+    container_name: mongodb
+    ports:
+      - ${MONGO_HOST_PORT}:27017
+    environment:
+      MONGO_USERNAME: ${MONGO_USERNAME}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - ./data/mongodb/data:/data/db
+      - ./data/mongodb/configdb:/data/configdb
+    # profiles:
+    #   - donotstart
+
+
+# Without a network explicitly defined, you hit this Hive/Thrift error
+# java.net.URISyntaxException Illegal character in hostname
+# https://github.com/TrivadisPF/platys-modern-data-platform/issues/231
+networks:
+  default:
+    name: ${COMPOSE_PROJECT_NAME}

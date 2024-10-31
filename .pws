@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+# MongoDB
+export MONGO_ROOT=mongodb  
+export MONGO_USERNAME=
+export MONGO_PASSWORD=  
+export MONGO_HOST=localhost
+export MONGO_PORT=27017
+export MONGO_DIRECT=directConnection=true
+export MONGO_DATASTORE=Mongo0   
+export MONGO_COLLECTION=sensor_data
+
+# This is used in app4d, see the README.md for more information
+export TIMESTAMP_FIELD=timestamp
+export METADATA_FIELD=metadata
+export RETENSION_LEVEL=seconds

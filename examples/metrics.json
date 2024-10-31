@@ -1,0 +1,149 @@
+
+	{
+		"timestamp" : "2024-10-02T01:00:00.869Z",
+		"metadata" : {
+			"siteId" : 1009,
+			"deviceId" : 1042,
+			"sensorId" : 10180,
+			"unit" : "Psi"
+		},
+		"measurement" : 1015.3997
+	},
+	{
+		"timestamp" : "2024-10-02T01:00:00.869Z",
+		"metadata" : {
+			"siteId" : 1009,
+			"deviceId" : 1042,
+			"sensorId" : 10180,
+			"unit" : "Psi"
+		},
+		"measurement" : 1015.3997
+	},
+	{
+		"timestamp" : "2024-10-02T02:00:00.869Z",
+		"metadata" : {
+			"siteId" : 1009,
+			"deviceId" : 1042,
+			"sensorId" : 10180,
+			"unit" : "Psi"
+		},
+		"measurement" : 1012.3997
+	},
+	{
+		"timestamp" : "2024-10-02T03:00:00.869Z",
+		"metadata" : {
+			"siteId" : 1009,
+			"deviceId" : 1042,
+			"sensorId" : 10180,
+			"unit" : "Psi"
+		},
+		"measurement" : 1010.3997
+	},
+	{
+		"timestamp" : "2024-10-02T04:00:00.869Z",
+		"metadata" : {
+			"siteId" : 1009,
+			"deviceId" : 1042,
+			"sensorId" : 10180,
+			"unit" : "Psi"
+		},
+		"measurement" : 1009.3997
+	},
+	{
+		"timestamp" : "2024-10-02T05:00:00.869Z",
+		"metadata" : {
+			"siteId" : 1009,
+			"deviceId" : 1042,
+			"sensorId" : 10180,
+			"unit" : "Psi"
+		},
+		"measurement" : 1007.3997
+	},
+	{
+		"timestamp" : "2024-10-02T06:00:00.869Z",
+		"metadata" : {
+			"siteId" : 1009,
+			"deviceId" : 1042,
+			"sensorId" : 10180,
+			"unit" : "Psi"
+		},
+		"measurement" : 1002.3997
+	}
+
+db.telemetryEvents.find({"metadata.deviceId": 1042, "metadata.sensorId":10180},{"timestamp":1,"measurement":1, "_id":0})
+
+// Standard to be used structure.
+
+{
+	"timestamp" : "2024-10-02T00:00:00.869Z",
+	"metadata" : {
+		"siteId" : 100,
+		"deviceId" : 1042,
+		"sensorId" : 10180,
+		"unit" : "Psi"
+	},
+	"measurement" : 1013.3997
+}
+
+// Complex Structure, with it's own... consideraations.
+
+{
+	"timestamp" : "2024-10-02T00:00:00.869Z",
+	"metadata" : {
+		"siteId" : 101,
+		"deviceId" : 1001,
+		"sensorId" : 10002,
+		"site": {
+			"name": "Johannesburg",
+			"location": {
+				"latitude": -26.195246, 
+				"longitude": 28.034088
+		},
+		"deviceType": "Pump",
+		"sensor":{
+			"sensorType": "temperature",
+			"unit": "Celcius",
+			"max_range": 90,
+			"min_range": 60,
+			"mean": 70,
+			"sd": 10
+		}
+	},
+	"measurement" : 1013.3997
+}
+
+
+
+db.telemetryEvents.insertMany( [
+	{
+		"timestamp": ISODate("2024-10-01T01:00:00.000Z"),
+		"metadata": { "sensorId": 90005, "unit": "celcius", "deviceId":1002, "siteId": 1001 },
+		"measurement": 12
+	 },
+	 {
+		"timestamp": ISODate("2024-10-01T02:00:00.000Z"),
+		"metadata": { "sensorId": 90005, "unit": "celcius", "deviceId":1002, "siteId": 1001 },
+		"measurement": 13
+	 },
+	 {
+		"timestamp": ISODate("2024-10-01T03:00:00.000Z"),
+		"metadata": { "sensorId": 90005, "unit": "celcius", "deviceId":1002, "siteId": 1001 },
+		"measurement": 13
+	 },
+	 {
+		"timestamp": ISODate("2024-10-01T04:00:00.000Z"),
+		"metadata": { "sensorId": 90005, "unit": "celcius", "deviceId":1002, "siteId": 1001 },
+		"measurement": 12
+	 }
+])
+
+// MongoDB Compass query
+// Return timestamp and measurement field, do not return _id field, 
+// Filtered by deviceId and sensorId
+db.telemetryEvents.find({"metadata.deviceId": 101, "metadata.sensorId":90005},{"timestamp":1,"measurement":1, "_id":0})
+db.telemetryEvents.find({"metadata.siteId":1001,"metadata.deviceId": 1002, "metadata.sensorId":10005},{"timestamp":1,"measurement":1, "_id":0})
+
+// For Grafana:
+// Return timestamp and measurement field, do not return _id field, 
+// Filtered by deviceId and sensorId
+MongoCom0.telemetryEvents.find({"metadata.deviceId": 1002, "metadata.sensorId": 90005},{"timestamp":1, "measurement":1, "_id":0})
