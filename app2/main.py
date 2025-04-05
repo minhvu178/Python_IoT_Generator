@@ -52,7 +52,7 @@ def main():
     my_sites = []
     for siteId in config_params["SITEIDS"]:
         
-        cur_site = utils.find_site(my_seedfile, int(siteId), logger)
+        cur_site = utils.find_site(my_seedfile, int(siteId), logger, config_params)
         if cur_site == -1:
             os._exit(1)
                     
